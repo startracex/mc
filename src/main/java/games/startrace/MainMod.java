@@ -1,5 +1,6 @@
 package games.startrace;
 
+import games.startrace.registry.modBlock;
 import games.startrace.registry.modItem;
 import games.startrace.registry.modItemGroup;
 import net.fabricmc.api.ModInitializer;
@@ -23,5 +24,6 @@ public class MainMod implements ModInitializer {
 
         modItemGroup.init();
         modItem.init();
+        modBlock.init();
     }
 }

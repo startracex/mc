@@ -19,14 +19,14 @@ public class modItemGroup {
      * 其中的物品不能在创建之前加入此组
      *
      * @param ICON_ITEM 在物品组的图标
-     * @param extraName 物品组的名字
+     * @param Name 物品组的名字
      * @return 物品组实例
      */
-    public static RegistryKey<ItemGroup> createItemGroup(Item ICON_ITEM, String extraName) {
-        var CUSTOM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MainMod.MOD_ID, extraName));
+    public static RegistryKey<ItemGroup> createItemGroup(Item ICON_ITEM, String Name) {
+        var CUSTOM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MainMod.MOD_ID, Name));
         Registry.register(Registries.ITEM_GROUP, CUSTOM_GROUP, FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ICON_ITEM))
-                .displayName(Text.translatable("itemgroup." + MainMod.MOD_ID + "." + extraName))
+                .displayName(Text.translatable("itemgroup." + MainMod.MOD_ID + "." + Name))
                 .build());
         return CUSTOM_GROUP;
     }
