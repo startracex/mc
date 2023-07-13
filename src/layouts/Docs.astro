@@ -1,0 +1,93 @@
+---
+import path from 'path';
+import Base from "~/layouts/Base.astro";
+import Footer from "~/components/Footer.astro";
+import EditPage from "~/components/EditPage.astro";
+import PreNext from "~/components/PreNext.astro";
+
+const {frontmatter} = Astro.props;
+
+const root=process.cwd();
+
+const current = frontmatter.file;
+
+const filepath = path.relative(root,current )
+
+let docs = await Astro.glob('../pages/docs/**/*.md*');
+docs = docs.filter((post) => !post.frontmatter.draft);
+
+docs.sort((a, b) => {
+    if (a.frontmatter?.index > b.frontmatter?.index) return 1
+    if (a.frontmatter?.index < b.frontmatter?.index) return -1
+    return 0
+})
+
+const heading_depth_class = [
+     "text-lg underline text-wool-yellow",
+     "ml-2 text-md",
+     "ml-4 italic text-sm",
+     "ml-6 text-xs",
+     "ml-8 text-xs",
+     "ml-10 text-xs",
+]
+
+const docsInfoArray=[]
+
+for (const doc of docs) {
+    docsInfoArray.push({
+        url:doc.url,
+        title:doc.frontmatter.title||doc.getHeadings()[0].text
+    })
+}
+
+
+---
+<Base noFooter active="docs">
+    <button slot="navbar" class="button grid place-items-center md:hidden mr-auto text-shadow-lg" onclick="document.getElementById('sidebar').classList.toggle('hidden')"><span class="mt-1.5 mr-2.5 mb-1 ml-2 leading-none">☰</span></button>
+    <div class="flex flex-col md:flex-row h-full min-h-[var(--main-height)]">
+        <aside id="sidebar" class="hidden h-[50vh] w-full bg-block-stone-slab-double md:block md:sticky md:top-0 md:h-screen md:w-6-block">
+                <div class="flex flex-col h-full gap-2 p-3 bg-dark-50 overflow-y-auto scrollbar">
+                {docs.map(async(h) => {
+                    const headings = h.getHeadings();
+                    return (
+                        <Fragment>
+                            {headings.length > 0 &&                        
+                                <nav class="achievement-panel p-1">
+                                    <div class="flex flex-col gap-1 py-2 px-3 text-white scrollbar overflow-y-auto"
+                                     style=`max-height:${docs.length>3?5:10}0vh;`
+                                     >                                        
+                                        { headings.map((heading) => {
+                                            return <a 
+                                                href={`${h.url}#${heading.slug}`}
+                                                class:list={[
+                                                    heading_depth_class[heading.depth-1],
+                                                    "hover:underline text-shadow-sm"
+                                                ]}
+                                            >
+                                                {heading.text}
+                                            </a>
+                                        })}
+                                    </div>
+                                </nav>
+                            }
+                        </Fragment>
+                    )
+                })}
+                </div>
+        </aside>
+        <div class="h-full w-full flex flex-col justify-between">
+            
+            <div class="flex flex-col justify-between h-full min-h-screen w-full md:w-[90%] lg:w-[80%] mx-auto px-3 overflow-visible ">
+                <div class="markdown">
+                    <slot />
+                </div>
+                <div >
+                    <PreNext docsInfoArray={docsInfoArray} url={frontmatter.url} />
+                    <EditPage filepath={filepath} />
+                </div>
+            </div>
+            <Footer class="[--block-size:56px]" />
+        </div>
+    </div>
+</Base>
+

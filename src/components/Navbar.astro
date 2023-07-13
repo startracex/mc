@@ -1,0 +1,27 @@
+---
+const { class: classProp,active} = Astro.props;
+const navs=[
+{name:"home",url:""},
+{name:"docs",url:"docs"},
+]
+navs.forEach(nav=>{
+  nav.active=nav.url==active || nav.name==active
+})
+---
+
+<header class:list={[ classProp, `[--nav-height:3] h-[calc(var(--block-size)_*_var(--nav-height))] w-full bg-block-dirt`
+    ]}>
+    <div class="h-full w-full bg-block-grass-side bg-repeat-x">
+        <div class="flex flex-col items-end md:flex-row justify-end h-full w-full p-5 bg-cover ">
+            <nav class="flex items-center justify-end w-full md:w-min gap-3 text-2xl text-white">
+                <slot />
+                {
+                navs.map(nav=><a href={import.meta.env.BASE_URL+nav.url} class=`hover:underline capitalize${nav.active?" text-yellow":""}` >
+                {nav.name}
+                </a>)
+                }
+                <a href="https://github.com/startracex/mc" class="button py-1 px-2 text-lg" target="_blank">Github</a>
+            </nav>
+        </div>
+    </div>
+</header>

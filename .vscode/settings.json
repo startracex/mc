@@ -1,0 +1,8 @@
+{
+   "files.exclude": {
+      "*lock*": true,
+      ".*rc": true,
+      "src/*.d.ts": true,
+      "*config.{mjs,js,cjs,json}": true,
+   }
+}

@@ -1,0 +1,17 @@
+---
+import Img from "~/components/Img.astro"
+const { class: classProp } = Astro.props
+
+//If you want to change the responsive height of footer:
+//tweak the `[--footer-height:${x}]` classes inside of footer component
+---
+
+<footer class:list={[ classProp, " w-full bg-block-bedrock" ]}>
+    <div class="flex flex-col sm:flex-row items-center justify-between h-full p-5 bg-dark-75 text-white">
+        <a href="https://astro.build/themes/details/minecraft-theme/">
+            <Img src="/imgs/project-logo.png" class="h-full max-w-[30ch] m-[-14px]" />
+        </a>
+        <a href="https://next.startrace.games/">©{new Date().getFullYear()} STARTRACEX</a>
+        <slot />
+    </div>
+</footer>

@@ -1,0 +1,25 @@
+---
+import Base from "~/layouts/Base.astro";
+import A from "~/components/A.astro";
+const item_files = await Astro.glob(`../../public/imgs/items/*`)
+const painting_files = await Astro.glob(`../../public/imgs/paintings/*`)
+
+const items = item_files.map(file => {
+return file.default.split('/').pop().split('.')[0]
+});
+
+const paintings = painting_files.map(file => {
+return file.default.split('/').pop().split('.')[0]
+});
+---
+
+<Base active="home">
+<div class="flex flex-col justify-center w-full h-full mx-auto gap-5 markdown">
+    <div class="flex items-center justify-center text-xl">
+        此站点记录了学习Fabric制作Minecraft Mod的过程
+    </div>
+    <A href="/docs"  class="self-center py-2 px-5 button text-shadow-lg text-xl">
+        从文档继续
+    </A>
+</div>
+</Base>

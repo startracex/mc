@@ -1,0 +1,10 @@
+---
+const {filepath} = Astro.props
+const edit_url="https://github.com/startracex/mc/edit/docs/"+filepath
+---
+<a class="flex button py-2 px-3 m-2 ml-auto w-fit" href={edit_url} >
+   <div class="my-auto mr-4">
+      编辑此页内容
+   </div>
+   <div class="bg-item-book-writable h-1-block w-1-block"></div>
+</a>
