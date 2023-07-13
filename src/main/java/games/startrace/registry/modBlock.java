@@ -1,6 +1,8 @@
 package games.startrace.registry;
 
 import games.startrace.MainMod;
+import games.startrace.registry.obsidian.Brick;
+import games.startrace.registry.obsidian.Square;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -11,6 +13,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 public class modBlock {
+
+    public static Block obsidian_square = Square.ObsidianSquareINSTANCE;
+    public static Block obsidian_brick = Brick.ObsidianBrickINSTANCE;
 
     /**
      * 创建一个方块

@@ -1,11 +1,11 @@
-package games.startrace.registry.tools;
+package games.startrace.registry.obsidian;
 
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
-public class ObsidianPickaxe implements ToolMaterial {
+public class Pickaxe implements ToolMaterial {
 
-    public static final ObsidianPickaxe ObsidianPickaxeINSTANCE = new ObsidianPickaxe();
+    public static final Pickaxe ObsidianPickaxeINSTANCE = new Pickaxe();
 
     //    工具在使用此材料时的耐久
     @Override
@@ -16,7 +16,7 @@ public class ObsidianPickaxe implements ToolMaterial {
     //    定义了工具破坏方块的速度。木制工具的速度为2.0F，钻石工具的速度为8.0F
     @Override
     public float getMiningSpeedMultiplier() {
-        return 72.0F;
+        return 80.0F;
     }
 
     @Override

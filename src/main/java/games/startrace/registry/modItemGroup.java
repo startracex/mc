@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class modItemGroup {
 
-    public static final RegistryKey<ItemGroup> TOOLS_GROUP = createItemGroup(Items.CRYING_OBSIDIAN, "obsidian_group");
+    public static final RegistryKey<ItemGroup> OBSIDIAN_GROUP = createItemGroup(Items.CRYING_OBSIDIAN, "obsidian_group");
 
     /**
      * 创建一个物品组

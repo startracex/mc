@@ -1,12 +1,11 @@
 package games.startrace.registry;
 
 import games.startrace.MainMod;
-import games.startrace.registry.tools.ObsidianPickaxe;
+import games.startrace.registry.obsidian.Pickaxe;
 import games.startrace.registry.tools._Pickaxe;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-//import net.minecraft.item.ToolItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -14,10 +13,12 @@ import net.minecraft.util.Identifier;
 
 public class modItem {
 
-    public static final Item OBSIDIAN_PICKAXE = createItem("obsidian_pickaxe",
+    public static final Item obsidian_pickaxe = createItem("obsidian_pickaxe",
             new _Pickaxe(
-                    ObsidianPickaxe.ObsidianPickaxeINSTANCE, 79, 0, new Item.Settings())
-            , modItemGroup.TOOLS_GROUP);
+                    Pickaxe.ObsidianPickaxeINSTANCE, 79, 0, new Item.Settings())
+            , modItemGroup.OBSIDIAN_GROUP);
+
+
 
     //物品实例
 //    public static final Item OBSIDIAN_PICKAXE = createItem("obsidian_pickaxe", new Item(new FabricItemSettings()), ItemGroups.TOOLS, modItemGroup.TOOLS_GROUP);
