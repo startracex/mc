@@ -1,6 +1,7 @@
 ---
 layout: '~/layouts/Docs.astro'
 index: 2
+time: 2023-07-11
 ---
 
 # 注册
@@ -101,8 +102,8 @@ public class modItemGroup {
 public class modItem {
     public static Item createItem(String name, Item item, RegistryKey<ItemGroup>... groups) {
         var CUSTOM_ITEM = Registry.register(Registries.ITEM, new Identifier(MOD_ID, name), item);
-        if (groups.length > 0) {
-            addToItemGroup(CUSTOM_ITEM, groups);
+        for (RegistryKey<ItemGroup> group : groups) {
+            ItemGroupEvents.modifyEntriesEvent(group).register(e -> e.add(item));
         }
         return CUSTOM_ITEM;
     }
@@ -121,4 +122,81 @@ public class modItem {
 
 ## 注册方块
 
-待更新
+若要注册方块,则要声明一个方块的静态字段,它的类型为`Block`
+
+```java
+public class modBlock {
+    public static Block CUSTOM_BLOCK = new Block(FabricBlockSettings.create()...),
+    public static void init() {}
+}
+```
+
+我将这些组放在了 `registry/modBlock` 类中, 并在 `init` 中注册
+
+可以将简化一下
+
+```java
+public class modBlock {
+    public static Block createBlock(String name, Block block, RegistryKey<ItemGroup>... groups) {
+        modItem.createItem(name, new BlockItem(block, new FabricItemSettings()), groups);
+        Registry.register(Registries.BLOCK, new Identifier(MainMod.MOD_ID, name), block);
+        return block;
+    }
+}
+```
+之后就可以这样使用
+
+```java
+public class modBlock {
+    public static Block CUSTOM_BLOCK = createBlock(NAME, BLOCK, GROUP...);
+    public static Block createBlock(...){...}
+    public static void init(){}
+}
+```
+
+## 示例: 添加一个obsidian_pickaxe
+
+创建一个物品类, 可在注释部分自定义稿子的属性
+    
+```java
+public class Pickaxe implements ToolMaterial {
+    public static final Pickaxe ObsidianPickaxeINSTANCE = new Pickaxe();
+    /* 
+    ...
+     */
+}
+```
+
+由于pickaxe是私有的,所以需要创建一个新的类,将其公开
+
+```java
+public class _Pickaxe extends PickaxeItem {
+    public _Pickaxe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
+        super(material, attackDamage, attackSpeed, settings);
+    }
+}
+```
+
+将 `ObsidianPickaxeINSTANCE` 注册到物品,并添加物品组
+
+```java
+public class modItem {
+    public static final Item obsidian_pickaxe = createItem("obsidian_pickaxe",
+            new _Pickaxe(
+                    Pickaxe.ObsidianPickaxeINSTANCE, 79, 0, new Item.Settings())
+            , modItemGroup.OBSIDIAN_GROUP);
+    // ...
+}
+
+```
+
+## 示例: 添加一个obsidian_brick
+
+创建obsidian_brick, 设置它的名称和硬度, 声明需要工具加快采集, 注册到物品, 并将其添加到一个物品组
+
+```java
+public static Block ObsidianBrickINSTANCE = modBlock.createBlock("obsidian_brick",
+        new Block(FabricBlockSettings.create().hardness(200f).requiresTool()),
+        modItemGroup.OBSIDIAN_GROUP
+);
+```

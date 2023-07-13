@@ -13,6 +13,13 @@ const current = frontmatter.file;
 
 const filepath = path.relative(root,current )
 
+const author = frontmatter.author || "STARTRACEX";
+const time = frontmatter.time ?new Date(frontmatter.time):new Date();
+
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+const date = time.toLocaleDateString(undefined, options);
+
 let docs = await Astro.glob('../pages/docs/**/*.md*');
 docs = docs.filter((post) => !post.frontmatter.draft);
 
@@ -83,7 +90,17 @@ for (const doc of docs) {
                 </div>
                 <div >
                     <PreNext docsInfoArray={docsInfoArray} url={frontmatter.url} />
-                    <EditPage filepath={filepath} />
+                    <div class="flex justify-between items-center text-water-ocean-lukewarm">
+                        <div>
+                            <aside>
+                                {author}
+                            </aside>
+                            <time>
+                                {date}
+                            </time>
+                        </div>
+                        <EditPage filepath={filepath} />
+                    </div>                    
                 </div>
             </div>
             <Footer class="[--block-size:56px]" />

@@ -1,6 +1,7 @@
 ---
 layout: '~/layouts/Docs.astro'
 index: 100
+author: BryceRussell
 ---
 
 # 样式控制

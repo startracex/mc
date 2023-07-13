@@ -1,11 +1,11 @@
 ---
 const { class: classProp,active} = Astro.props;
 const navs=[
-{name:"home",url:""},
-{name:"docs",url:"docs"},
+    {name:"home",url:""},
+    {name:"docs",url:"docs"},
 ]
-navs.forEach(nav=>{
-  nav.active=nav.url==active || nav.name==active
+navs.forEach(nav => {
+  nav.active = nav.url == active || nav.name==active;
 })
 ---
 

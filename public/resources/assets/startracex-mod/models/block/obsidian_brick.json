@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "startracex-mod:block/obsidian_brick"
+  }
+}

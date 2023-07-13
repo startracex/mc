@@ -1,43 +1,44 @@
 ---
 import A from "~/components/A.astro";
 import Img from "~/components/Img.astro";
-const {docsInfoArray,url} = Astro.props;
-// 查询当前文档上下两个文档
+
+const { docsInfoArray, url } = Astro.props;
+
 const currentIndex = docsInfoArray.findIndex(item => item.url === url);
 
-const prevIndex=currentIndex===0?null:currentIndex-1;
-const nextIndex=currentIndex===docsInfoArray.length-1?null:currentIndex+1;
-
-
+const prevIndex=currentIndex === 0 ? null : currentIndex - 1;
+const nextIndex=currentIndex === docsInfoArray.length-1 ? null : currentIndex + 1;
 ---
-
-<div class="flex text-zinc-100">
-   {prevIndex!==null&&<div class="w-1/2 ">
+<div class="flex text-zinc-100 flex-col sm:flex-row items-center">
+   {
+   prevIndex !== null && <div class="sm:w-1/2 w-full">
       <A href={docsInfoArray[prevIndex].url} class="block panel-dark flex items-center p-2 m-2">
          <Img src="/imgs/icons/large-arrow-left.png" class="object-contain m-[1rem] [transform:scale(2)]" />
-         <section class="text-center flex-1">
-            <span>
+         <section class="flex flex-row md:flex-col justify-evenly items-center w-full mr-[54px] md:m-0">
+            <div>
                上篇内容
-            </span>
-            <div class="mt-1">
+            </div>
+            <div class="m-2">
                {docsInfoArray[prevIndex].title}
             </div>
          </section>
       </A>
-   </div>}
-   {nextIndex!==null&&<div class="w-1/2 ml-auto"
-     >
+   </div>
+   }
+   {
+   nextIndex !== null && <div class="sm:w-1/2 w-full sm:ml-auto">
       <A href={docsInfoArray[nextIndex].url} class="block panel-dark flex items-center flex-row-reverse  p-2 m-2">
          <Img src="/imgs/icons/large-arrow-right-hover.png" class="object-contain m-[1rem] [transform:scale(2)]" />
-         <section class="text-center flex-1">
-            <span>
+         <section class="flex flex-row md:flex-col justify-evenly items-center w-full ml-[54px] md:m-0" >
+            <div>
                下篇内容
-            </span>
-            <div class="mt-1">
+            </div>
+            <div class="mt-2">
                {docsInfoArray[nextIndex].title}
             </div>
          </section>
       </A>
-   </div>}
+   </div>
+   }
 
 </div>

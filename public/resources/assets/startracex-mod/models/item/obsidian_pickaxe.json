@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "startracex-mod:item/obsidian_pickaxe"
+  }
+}
