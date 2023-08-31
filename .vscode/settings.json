@@ -3,6 +3,7 @@
       "*lock*": true,
       ".*rc": true,
       "src/*.d.ts": true,
-      "*config.{mjs,js,cjs,json}": true,
+      "tsconfig.json": true,
+      "tailwind.config.cjs": true
    }
 }

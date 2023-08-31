@@ -3,12 +3,17 @@ import Base from "~/layouts/Base.astro";
 import A from "~/components/A.astro";
 ---
 <Base active="home">
-    <div class="flex flex-col justify-center w-full h-full mx-auto gap-5 markdown">
-        <div class="flex items-center justify-center text-xl">
-            此站点记录了学习Fabric制作Minecraft Mod的过程
+    <div class="flex flex-col justify-center items-center w-full h-full mx-auto gap-5 markdown">
+        <div class="flex flex-col text-xl">
+            <p class="text-center m-2">
+                此站点记录了 
+            </p>
+            <li>
+                使用Fabric学习制作Minecraft Mod的过程
+            </li>
         </div>
         <A href="/docs"  class="self-center py-2 px-5 button text-shadow-lg text-xl">
-            从文档继续
+            从文档导航继续
         </A>
     </div>
 </Base>

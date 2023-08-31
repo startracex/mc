@@ -1,55 +1,62 @@
 ---
-import '../css/base.css'
+import "../css/base.css";
 import Navbar from "~/components/Navbar.astro";
 import Footer from "~/components/Footer.astro";
-const baseURL = "/mc";
-
 const {
-block="obsidian",
-size=48,
-navHeight=2,
-noNav,
-noFooter=false,
-active="/"
-} = Astro.props
+	block = "obsidian",
+	size = 48,
+	navHeight = 2,
+	noNav,
+	noFooter = false,
+	active = "/",
+} = Astro.props;
 
 // Used to calculate the min height for main element
-const min_navbar_height = 2
-const min_footer_height = 3
+const min_navbar_height = 2;
+const min_footer_height = 3;
 ---
 
-
 <html lang="en">
+	<head>
+		<style
+			is:global
+			set:html={` :root { --block-size: ${size}px; --nav-height: var(--${navHeight}-block); --main-height:
+		calc(100vh - (var(--block-size) * (${min_navbar_height} + ${min_footer_height}))); } `}
+		></style>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Minecraft Theme</title>
+		<link rel="icon" href=`${import.meta.env.BASE_URL}favicon.ico` />
+		<link
+			rel="stylesheet"
+			href=`${import.meta.env.BASE_URL}css/minecraft.css`
+		/>
+	</head>
 
-<head>
-	<style is:global set:html={` :root { --block-size: ${size}px; --nav-height: var(--${navHeight}-block); --main-height:
-		calc(100vh - (var(--block-size) * (${min_navbar_height} + ${min_footer_height}))); } `}></style>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<title>Minecraft Theme</title>
-	<link rel="icon" href=`${import.meta.env.BASE_URL}favicon.ico` />
-	<link rel="stylesheet" href=`${import.meta.env.BASE_URL}css/minecraft.css`>
-</head>
-
-<body class="scrollbar">
-	<slot name="first" />
-	{!noNav &&
-	<Navbar height={navHeight} active={active}>
-		<slot name="navbar" />
-	</Navbar>
-	}
-	<main class={`flex-1 h-full w-full bg-block-${block}`} style="display:table;">
-		<div class="h-full w-full bg-dark-50 flex flex-col">
-			<slot />
-		</div>
-
-	</main>
-	{!noFooter &&
-	<Footer>
-		<slot name="footer" />
-	</Footer>
-	}
-	<slot name="last" />
-</body>
-
+	<body class="scrollbar">
+		<slot name="first" />
+		{
+			!noNav && (
+				<Navbar height={navHeight} active={active}>
+					<slot name="navbar" />
+				</Navbar>
+			)
+		}
+		<main
+			class={`flex-1 h-full w-full bg-block-${block}`}
+			style="display:table;"
+		>
+			<div class="h-full w-full bg-dark-50 flex flex-col">
+				<slot />
+			</div>
+		</main>
+		{
+			!noFooter && (
+				<Footer>
+					<slot name="footer" />
+				</Footer>
+			)
+		}
+		<slot name="last" />
+	</body>
 </html>

@@ -1,42 +1,6 @@
 ---
-import A from "~/components/A.astro";
-import Img from "~/components/Img.astro";
-import Base from "~/layouts/Base.astro";
-
-let docs = await Astro.glob('./**/*.md');
-docs = docs.filter((post) => !post.frontmatter.draft);
-
-docs.sort((a, b) => {
-    if (a.frontmatter?.index > b.frontmatter?.index) return 1;
-    if (a.frontmatter?.index < b.frontmatter?.index) return -1;
-    return 0;
-})
-const docsInfoArray=[]
-
-for (const doc of docs) {
-    docsInfoArray.push({
-        url:doc.url,
-        title:doc.frontmatter.title||doc.getHeadings()[0].text,
-        author:doc.frontmatter.author || "STARTRACEX",
-    });
-}
+import Ind from "~/components/NavIndex.astro";
+let docs = await Astro.glob("./**/*.md");
 ---
-<Base active="docs">
-   <div id="DocsIndex" class="m-auto p-8">
-   {
-      docsInfoArray.map( docsInfo => <div class="w-full sm:w-1/2" style="display: inline-block;">
-         <A href={docsInfo.url} class=" panel-dark flex items-center flex-row-reverse  p-2 m-2">
-            <Img src="/imgs/icons/large-arrow-right-hover.png" class="object-contain m-[1rem] [transform:scale(2)]" />
-            <section class="text-center flex-1">
-               <div class="mt-1 text-white text-xl">
-                  {docsInfo.title}
-               </div>
-               <div class="text-gray text-sm">
-                  @{docsInfo.author}
-               </div>
-            </section>
-         </A>
-      </div>)
-   }
-   </div>
-</Base>
+
+<Ind docs={docs} active="docs" />

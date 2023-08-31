@@ -1,8 +1,19 @@
 ---
 const { class: classProp,active} = Astro.props;
-const navs=[
-    {name:"home",url:""},
-    {name:"docs",url:"docs"},
+const navs:{
+    active?:boolean
+    name:string
+    url:string
+}[] =
+[
+    {
+        name:"home",
+        url:""
+    },
+    {
+        name:"docs",
+        url:"docs"
+    }
 ]
 navs.forEach(nav => {
   nav.active = nav.url == active || nav.name==active;

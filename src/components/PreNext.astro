@@ -4,7 +4,7 @@ import Img from "~/components/Img.astro";
 
 const { docsInfoArray, url } = Astro.props;
 
-const currentIndex = docsInfoArray.findIndex(item => item.url === url);
+const currentIndex = docsInfoArray.findIndex((item: { url: any; }) => item.url === url);
 
 const prevIndex=currentIndex === 0 ? null : currentIndex - 1;
 const nextIndex=currentIndex === docsInfoArray.length-1 ? null : currentIndex + 1;
@@ -12,14 +12,14 @@ const nextIndex=currentIndex === docsInfoArray.length-1 ? null : currentIndex + 
 <div class="flex text-zinc-100 flex-col sm:flex-row items-center">
    {
    prevIndex !== null && <div class="sm:w-1/2 w-full">
-      <A href={docsInfoArray[prevIndex].url} class="block panel-dark flex items-center p-2 m-2">
+      <A href={docsInfoArray[prevIndex]?.url} class="block panel-dark flex items-center p-2 m-2">
          <Img src="/imgs/icons/large-arrow-left.png" class="object-contain m-[1rem] [transform:scale(2)]" />
          <section class="flex flex-row md:flex-col justify-evenly items-center w-full mr-[54px] md:m-0">
             <div>
                上篇内容
             </div>
             <div class="m-2">
-               {docsInfoArray[prevIndex].title}
+               {docsInfoArray[prevIndex]?.title}
             </div>
          </section>
       </A>
@@ -40,5 +40,4 @@ const nextIndex=currentIndex === docsInfoArray.length-1 ? null : currentIndex + 
       </A>
    </div>
    }
-
 </div>

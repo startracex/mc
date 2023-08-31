@@ -1,5 +1,5 @@
 ---
-import path from 'path';
+import path from "path";
 import Base from "~/layouts/Base.astro";
 import Footer from "~/components/Footer.astro";
 import EditPage from "~/components/EditPage.astro";
@@ -16,11 +16,12 @@ const filepath = path.relative(root,current )
 const author = frontmatter.author || "STARTRACEX";
 const time = frontmatter.time ?new Date(frontmatter.time):new Date();
 
-const options = { year: 'numeric', month: 'long', day: 'numeric' };
+const options = { year: "numeric", month: "long", day: "numeric" };
 
+// @ts-ignore
 const date = time.toLocaleDateString(undefined, options);
 
-let docs = await Astro.glob('../pages/docs/**/*.md*');
+let docs = await Astro.glob("../pages/docs/**/*.md*");
 docs = docs.filter((post) => !post.frontmatter.draft);
 
 docs.sort((a, b) => {
@@ -50,7 +51,9 @@ for (const doc of docs) {
 
 ---
 <Base noFooter active="docs">
-    <button slot="navbar" class="button grid place-items-center md:hidden mr-auto text-shadow-lg" onclick="document.getElementById('sidebar').classList.toggle('hidden')"><span class="mt-1.5 mr-2.5 mb-1 ml-2 leading-none">☰</span></button>
+    <button slot="navbar" class="button grid place-items-center md:hidden mr-auto text-shadow-lg" onclick="
+    document.getElementById('sidebar').classList.toggle('hidden');
+"><span class="mt-1.5 mr-2.5 mb-1 ml-2 leading-none">☰</span></button>
     <div class="flex flex-col md:flex-row h-full min-h-[var(--main-height)]">
         <aside id="sidebar" class="hidden h-[50vh] w-full bg-block-stone-slab-double md:block md:sticky md:top-0 md:h-screen md:w-6-block">
                 <div class="flex flex-col h-full gap-2 p-3 bg-dark-50 overflow-y-auto scrollbar">
